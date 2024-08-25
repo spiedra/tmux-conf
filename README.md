@@ -21,9 +21,9 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 2. Install plugins
 
-## Run
-`Ctrl+I`
-
+```bash
+Ctrl + I
+```
 ## Contributing
 
 If you want to make a contribution, please follow the next steps:
