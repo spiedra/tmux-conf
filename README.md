@@ -43,6 +43,10 @@ sudo apt install xclip
 
 5. Ensure the virtual machine is configured to share the clipboard with the host system (if applicable).
 
+### Adding Styles
+
+To add styles, follow the instructions in the following file: [JetBrains Mono Patched Font on Kali Linux](https://github.com/spiedra/tmux-conf/blob/master/jetbrains-mono-patched-font-kali-linux.md.md).
+
 ## Contributing
 
 To make a contribution, follow the steps below:
