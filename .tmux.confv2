@@ -22,6 +22,9 @@ set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-online-status'
 set -g @plugin 'tmux-plugins/tmux-battery'
 set -g @plugin 'catppuccin/tmux'
+set -g @plugin 'tmux-plugins/tmux-yank'
+
+setw -g mode-keys vi
 
 # Configure Catppuccin
 set -g @catppuccin_flavor "macchiato"
@@ -89,3 +92,23 @@ set -g window-status-current-style "bg=#{@thm_peach},fg=#{@thm_bg},bold"
 
 ##### TPM bootstrap (keep last)
 run '~/.tmux/plugins/tpm/tpm'
+
+# === Robust clipboard copy: auto switch between Wayland (wl-copy) and X11 (xclip) ===
+# Define @copy_cmd según el entorno gráfico
+if -b 'test -n "$WAYLAND_DISPLAY"' \
+  'set -g @copy_cmd "wl-copy"' \
+  'set -g @copy_cmd "xclip -selection clipboard -in"'
+
+# Copy-mode vi bindings (y, Enter y selección con mouse) -> sistema
+unbind -T copy-mode-vi y
+bind   -T copy-mode-vi y      send-keys -X copy-pipe-and-cancel "#{@copy_cmd}"
+
+unbind -T copy-mode-vi Enter
+bind   -T copy-mode-vi Enter  send-keys -X copy-pipe-and-cancel "#{@copy_cmd}"
+
+unbind -T copy-mode-vi MouseDragEnd1Pane
+bind   -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "#{@copy_cmd}"
+
+# (Opcional) copiar línea completa con Y
+unbind -T copy-mode-vi Y
+bind   -T copy-mode-vi Y      send-keys -X copy-line \; send-keys -X copy-pipe-and-cancel "#{@copy_cmd}"
