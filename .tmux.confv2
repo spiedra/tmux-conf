@@ -24,6 +24,10 @@ set -g @plugin 'tmux-plugins/tmux-battery'
 set -g @plugin 'catppuccin/tmux'
 set -g @plugin 'tmux-plugins/tmux-yank'
 
+# --- Clipboard integration (VMware + Kali X11) ---
+set -g @copy_cmd "xclip -selection clipboard -in -l 1"
+set -g set-clipboard on
+
 setw -g mode-keys vi
 
 # Configure Catppuccin
